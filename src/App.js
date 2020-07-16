@@ -8,6 +8,7 @@ import Description from './components/Description'
 
 function App() {
   const [nasaData, setNasaData] = useState("")
+  const [toggle, setToggle] = useState(false)
 
   useEffect(() => {
     axios.get(`${BASE_URL}?api_key=${API_KEY}`)
@@ -24,7 +25,8 @@ function App() {
   return (
     <div className="App">
       <Title nasaData = {nasaData} />
-      <Image nasaData = {nasaData} />
+      {toggle && <Image nasaData = {nasaData} />}
+      <button onClick = {() => setToggle(!toggle)}>{toggle ? "Hide Photo" : "Click for Photo"}</button>
       <Description nasaData = {nasaData} />
     </div>
   );
