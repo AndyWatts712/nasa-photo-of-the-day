@@ -4,7 +4,8 @@ function Image(props) {
     console.log('Image -->', props)
     return(
         <div>
-            <img src={props.nasaData.url} alt = "NASA"/>
+            <img src={props.nasaData} alt = "NASA"/>
+            <img src={props.marsPhotoData} alt = "NASA"/>
         </div>
     )
 }
