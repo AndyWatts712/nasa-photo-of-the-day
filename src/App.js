@@ -17,7 +17,8 @@ const MainDiv = styled.div`
 function App() {
   const [nasaData, setNasaData] = useState("")
   const [toggle, setToggle] = useState(false)
-  const [marsPhotoData, setMarsPhotoData] = useState("")
+  const [marsPhotoData, setMarsPhotoData] = useState([])
+  const [index, setIndex] = useState(0)
 
 
 
@@ -35,7 +36,7 @@ function App() {
   useEffect(() => {
     axios.get(`${MARS_URL}&api_key=${API_KEY}`)
       .then((resp) => {
-        console.log(resp.data)
+        console.log('RESP--->', resp.data)
         setMarsPhotoData(resp.data)
       })
       .catch((err) => {
@@ -43,13 +44,13 @@ function App() {
 
       })
   }, [])
-
-  return (
+  
+   return (
     <MainDiv className="App">
       <Title nasaData = {nasaData} />
-      {toggle && <Image nasaData = {nasaData.url} marsPhotoData ={marsPhotoData.photos[1].img_src} />}
-      <button onClick = {() => setToggle(!toggle)}>{toggle ? "Hide Photo" : "Click for Photo"}</button>
-      <button>Mars Rover Photo</button>
+      {toggle && <Image photo = {marsPhotoData.photos[index].img_src} />}
+      <button onClick = {() => setToggle(!toggle) }>{toggle ? "Hide Photo" : "Click for Photo"}</button>
+      <button onClick = {() => setIndex(index + 1)}>Mars Rover Photo</button>
       {/* <img src ={marsPhotoData.photos[1].img_src} alt = "Mars"/> */}
       <Description nasaData = {nasaData.explanation} />
     </MainDiv>
